@@ -11,15 +11,17 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import pages.MainPage;
 
 import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
-public class BasePageClass extends APIClass {
+public class BasePageClass {
 
-    private int WAITER_TIME_OUT = 10;
-    private final int DRIVER_WAIT_TIME = 120;
+    private static final int WAITER_TIME_OUT = 20;
+    private static final int DRIVER_WAIT_TIME = 120;
+    protected static WebDriver driver;
 
-    @Override
+
     public WebDriver getDriver() {
         return driver;
     }
@@ -35,7 +37,7 @@ public class BasePageClass extends APIClass {
 
     public WebElement waitForExpectedElement(By webElementLocator) {
         return new WebDriverWait(driver, WAITER_TIME_OUT)
-                .until(ExpectedConditions.presenceOfElementLocated(webElementLocator));
+                .until(ExpectedConditions.visibilityOfElementLocated(webElementLocator));
     }
 
 
@@ -75,4 +77,21 @@ public class BasePageClass extends APIClass {
                 .executeScript("return typeof jQuery != 'undefined' && jQuery.active == 0"));
     }
 
+
+    public void open(String url) {
+        getDriver().get(url);
+    }
+
+
+    public void maximizeWindow() {
+        driver.manage().window().maximize();
+    }
+
+
+    public boolean isDeliveryPage() {
+        new MainPage()
+                .openHomePage()
+                .openTabPage("Доставка");
+        return driver.findElement(By.xpath("//h1[contains(text(), 'Информация о доставке')]")) != null;
+    }
 }

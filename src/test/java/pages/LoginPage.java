@@ -14,12 +14,12 @@ import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 public class LoginPage extends BasePageClass {
 
-    private static final String EMAIL_FIELD_XPATH = "//input[@id = 'exampleInputEmail1']";
+    private static final By EMAIL_FIELD = By.id("exampleInputEmail1");
 
-    private static final String PASSWORD_FIELD_XPATH = "//input[@id = 'exampleInputPassword1']";
+    private static final By PASSWORD_FIELD = By.id("exampleInputPassword1");
 
 
-    public String getParamFromProperty(String propertyName) {
+    private String getParamFromProperty(String propertyName) {
         FileInputStream fis;
         Properties properties = new Properties();
         String emailFromPropertyFile = "";
@@ -36,18 +36,26 @@ public class LoginPage extends BasePageClass {
     }
 
 
-    public LoginPage fillOutEmailField() throws InterruptedException {
-        WebElement emailField = waitForExpectedElement(By.xpath(String.format(EMAIL_FIELD_XPATH)));
-        //I know that sleepers are very bad practice, but how I can set ExplicitWait there, currently have no ideas
-        Thread.sleep(2000);
+    public LoginPage fillOutEmailField() {
+        WebElement emailField = waitForExpectedElement(EMAIL_FIELD);
         emailField.sendKeys(getParamFromProperty("email"), Keys.ENTER);
         return this;
     }
 
 
-    public PersonalAreaPage fillOutPasswordField() throws InterruptedException {
-        WebElement passwordField = waitForExpectedElement(By.xpath(String.format(PASSWORD_FIELD_XPATH)));
+    public PersonalAreaPage fillOutPasswordField() {
+        WebElement passwordField = waitForExpectedElement(PASSWORD_FIELD);
         passwordField.sendKeys(getParamFromProperty("password"), Keys.ENTER);
         return new PersonalAreaPage();
     }
+
+
+    public boolean isLoginPage() {
+        new MainPage()
+                .openHomePage()
+                .openTabPage("Вход/регистрация");
+        return driver.findElement(By.xpath("//a[contains(text(), 'Вход')]")) != null;
+    }
 }
+
+

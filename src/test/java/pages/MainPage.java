@@ -15,9 +15,9 @@ public class MainPage extends BasePageClass {
 
     private static final String DPI_AND_CPI_RESOLUTION_VALUE = "23000";
 
-    private static final String BUY_PRODUCT_XPATH = "//a[text()='Купить']";
+    private static final By BUY_PRODUCT_BUTTON = By.className("item-buy-btn");
 
-    private static final String CLOSE_BUTTON_WINDOW_LOCATOR = "//div[@id='notification-type']//button[contains(@class,'close')]";
+    private static final By CLOSE_BUTTON_WINDOW_LOCATOR = By.xpath("//div[@id='notification-type']//button[contains(@class,'close')]");
 
     private static final String CARD_BUTTON_XPATH = "//span[text() = 'Корзина']";
 
@@ -25,21 +25,22 @@ public class MainPage extends BasePageClass {
 
     private static final String ADD_TO_CAMPARASION_LIST_ICON_XPATH = "//div[contains(@class,'center-block')]//a[contains(@class,'item-compare-btn')]";
 
-    private static final String CATEGORY_SECTION_XPATH = "//span[contains(text(), 'Игровые мыши')]";
+    private static final String CATEGORY_SECTION_MOUSE_XPATH = "//span[contains(text(), 'Игровые мыши')]";
 
-    private static final String CHACKBOX_BRAND_OF_CHOSEN_PRODUCT_XPATH = "//div[contains(@class, 'checkbox checkbox-success')]//input[1]";
+    private static final By CHECKBOX_BRAND_OF_CHOSEN_PRODUCT_XPATH = By.xpath("//div[contains(@class, 'checkbox-success')]//input");
+    private static final By INPUT_MAX_PRICE = By.id("price-max");
 
-    private static final String INPUT_MAX_PRICE_XPATH = "//input[contains(@id, 'price-max')]";
+    private static final By COMPARASION_PRODUCTS_XPATH = By.xpath("//span[contains(text(), 'Сравнение товаров')]");
 
     private static final String PRODUCT_TYPE_DROPDOWN_XPATH = "//div[contains(@class, 'col-filter-div')]//select";
 
-    private static final String OPTION_FROM_PRODUCT_TYPE_XPATH = "//div[contains(@class, 'col-filter-div')]//select//option[contains(text(), 'Лазерный')]";
+    private static final String OPTION_LASER_FROM_PRODUCT_TYPE_XPATH = "//div[contains(@class, 'col-filter-div')]//select//option[contains(text(), 'Лазерный')]";
 
-    private static final String INPUT_DPI_AND_CPI_RESOLUTION_XPATH = "//input[contains(@id, 'at52-max')]";
+    private static final By INPUT_DPI_AND_CPI_RESOLUTION = By.id("at52-max");
 
-    private static final String SUB_CATEGORY_OPTION_XPATH = "//div[contains(@class, 'brands-list')]//div//a[1]";
+    private static final String SUB_CATEGORY_OPTION_XPATH = "//div[contains(@class, 'brands-list')]//div//a";
 
-    private static final String ADDO_TO_WISH_LIST_BUTTON_XPATH = "//div[contains(@class, 'center-block')]//a[2]";
+    private static final String ADDO_TO_WISH_LIST_BUTTON_XPATH = "//div[contains(@class, 'center-block')]//a[contains(@class,'item-favourite-small-btn')]";
 
      private static final String WISH_LIST_PAGE_XPATH = "//span[contains(text(), 'Закладки')]";
 
@@ -47,19 +48,20 @@ public class MainPage extends BasePageClass {
 
     public MainPage openHomePage() {
         open(APPLICATION_URL);
+        maximizeWindow();
         return this;
     }
 
 
     public MainPage addProductToCard() {
-        WebElement buyButton = waitForExpectedElement(By.xpath(String.format(BUY_PRODUCT_XPATH)));
+        WebElement buyButton = waitForExpectedElement(BUY_PRODUCT_BUTTON);
         buyButton.click();
         waitPageIsLoadedAndJQueryIsProcessed();
         return this;
 }
 
     public MainPage closePopUpWindow() {
-        WebElement closeButton = waitForExpectedElement(By.xpath(String.format(CLOSE_BUTTON_WINDOW_LOCATOR)));
+        WebElement closeButton = waitForExpectedElement(CLOSE_BUTTON_WINDOW_LOCATOR);
         closeButton.click();
         waitPageIsLoadedAndJQueryIsProcessed();
         return this;
@@ -92,7 +94,7 @@ public class MainPage extends BasePageClass {
 
 
     public MainPage chooseProductCategory() {
-        WebElement sectionProductButton = waitForExpectedElement(By.xpath(String.format(CATEGORY_SECTION_XPATH)));
+        WebElement sectionProductButton = waitForExpectedElement(By.xpath(String.format(CATEGORY_SECTION_MOUSE_XPATH)));
         sectionProductButton.click();
         waitPageIsLoadedAndJQueryIsProcessed();
         return this;
@@ -100,14 +102,14 @@ public class MainPage extends BasePageClass {
 
 
     public MainPage checkBrandOfChosenProduct() {
-        WebElement chooseBrandCheckbox = waitForExpectedElement(By.xpath(String.format(CHACKBOX_BRAND_OF_CHOSEN_PRODUCT_XPATH)));
+        WebElement chooseBrandCheckbox = waitForExpectedElement(CHECKBOX_BRAND_OF_CHOSEN_PRODUCT_XPATH);
         chooseBrandCheckbox.click();
         waitPageIsLoadedAndJQueryIsProcessed();
         return this;
     }
 
     public MainPage filloutInputFormaxPrice() {
-        WebElement fillOutMaxPrice = waitForExpectedElement(By.xpath(String.format(INPUT_MAX_PRICE_XPATH)));
+        WebElement fillOutMaxPrice = waitForExpectedElement(INPUT_MAX_PRICE);
         fillOutMaxPrice.sendKeys(MAX_PRICE_VALUE, Keys.ENTER);
         waitPageIsLoadedAndJQueryIsProcessed();
         return this;
@@ -122,14 +124,14 @@ public class MainPage extends BasePageClass {
     }
 
     public MainPage chooseProductFromProductTypeDropDown() {
-        WebElement productFromProductTypeDropDown = waitForExpectedElement(By.xpath(String.format(OPTION_FROM_PRODUCT_TYPE_XPATH)));
+        WebElement productFromProductTypeDropDown = waitForExpectedElement(By.xpath(String.format(OPTION_LASER_FROM_PRODUCT_TYPE_XPATH)));
         productFromProductTypeDropDown.click();
         waitPageIsLoadedAndJQueryIsProcessed();
         return this;
     }
 
     public MainPage filloutInputDPIAndCPIResolutionValue() {
-        WebElement fillOutDPIAndCPIResolutionValue = waitForExpectedElement(By.xpath(String.format(INPUT_DPI_AND_CPI_RESOLUTION_XPATH)));
+        WebElement fillOutDPIAndCPIResolutionValue = waitForExpectedElement(INPUT_DPI_AND_CPI_RESOLUTION);
         fillOutDPIAndCPIResolutionValue.sendKeys(DPI_AND_CPI_RESOLUTION_VALUE, Keys.ENTER);
         waitPageIsLoadedAndJQueryIsProcessed();
         return this;
@@ -157,12 +159,26 @@ public class MainPage extends BasePageClass {
         waitPageIsLoadedAndJQueryIsProcessed();
         return new WishListPage();
     }
-
+/*
     public boolean openTabPage(String tabItem) {
         maximizeWindow();
         WebElement pageButton = waitForExpectedElement(By.xpath(String.format(ELEMENT_WITH_TEXT, tabItem)));
         waitPageIsLoadedAndJQueryIsProcessed();
         return pageButton.isDisplayed();
     }
+    */
+
+
+
+
+    public BasePageClass  openTabPage(String tabItem) {
+        maximizeWindow();
+        WebElement pageButton = waitForExpectedElement(By.xpath(String.format(ELEMENT_WITH_TEXT, tabItem)));
+        pageButton.click();
+        waitPageIsLoadedAndJQueryIsProcessed();
+   return new BasePageClass();
+    }
+
+
 }
 

@@ -12,6 +12,7 @@
 			<class name="tests.VerifyProductIsAddedToCard"/>
 			<class name="tests.VerifyProductAdditionToComparasionList"/>
 			<class name="tests.VerifyHeaderButtonsAreClickable"/>
+			<class name="tests.VerifyProductsCatalogOptions"/>
 		</classes>
 	</test>
 </suite>

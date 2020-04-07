@@ -1,33 +1,39 @@
 package tests;
 
+
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
+import org.testng.ITestContext;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import pages.*;
 
 
+
+
 public class VerifyHeaderButtonsAreClickable extends MainPage {
 
-    @Parameters({"Вход/регистрация"})
+
+
     @Test
     public void testLoginButtonIsClickable(){
-        Boolean isLoginPageDisplayed = new MainPage()
+        LoginPage loginPage =  new MainPage()
                 .openHomePage()
-                .openTabPage("Вход/регистрация");
-        Assert.assertTrue(isLoginPageDisplayed);
+                .openLoginPage();
+        Assert.assertTrue(loginPage.isLoginPage());
     }
 
-    @Parameters({"Доставка"})
+
     @Test
     public void testDeliveryButtonIsClickable(){
-        Boolean isDeliveryPageDisplayed = new MainPage()
+
+        Assert.assertTrue( new MainPage()
                 .openHomePage()
-                .openTabPage("Доставка");
-        Assert.assertTrue(isDeliveryPageDisplayed);
+                .openTabPage("Доставка").isDeliveryPage());
     }
 
-    @Parameters({"Оплата"})
-    @Test
+
+   /* @Test
     public void testPaymentButtonIsClickable(){
         Boolean isPaymentPageDisplayed = new MainPage()
                 .openHomePage()
@@ -36,7 +42,6 @@ public class VerifyHeaderButtonsAreClickable extends MainPage {
 
     }
 
-    @Parameters({"Система скидок"})
     @Test
     public void testDiscountSystemButtonIsClickable(){
         Boolean isDiscountSystemPageDisplayed = new MainPage()
@@ -46,7 +51,7 @@ public class VerifyHeaderButtonsAreClickable extends MainPage {
     }
 
 
-    @Parameters({"Гарантия"})
+
     @Test
     public void testWarrantyButtonIsClickable(){
         Boolean isWarrantyPageDisplayed = new MainPage()
@@ -55,7 +60,7 @@ public class VerifyHeaderButtonsAreClickable extends MainPage {
         Assert.assertTrue(isWarrantyPageDisplayed);
     }
 
-    @Parameters({"Закладки"})
+
     @Test
     public void testBookmarksButtonIsClickable(){
        Boolean isBookmarksPage = new MainPage()
@@ -65,7 +70,7 @@ public class VerifyHeaderButtonsAreClickable extends MainPage {
     }
 
 
-    @Parameters({"Сравнение товаров"})
+
     @Test
     public void testComparasionOfProductsButtonIsClickable(){
         Boolean isComparasionListPage = new MainPage()
@@ -74,7 +79,9 @@ public class VerifyHeaderButtonsAreClickable extends MainPage {
         Assert.assertTrue(isComparasionListPage);
     }
 
-    @Parameters({"Корзина"})
+
+
+
     @Test
     public void testBasketButtonIsClickable(String basket){
           Boolean isBasketPageDisplayed = new MainPage()
@@ -82,7 +89,7 @@ public class VerifyHeaderButtonsAreClickable extends MainPage {
                   .openTabPage(basket);
           Assert.assertTrue(isBasketPageDisplayed);
         }
-    }
+    */}
 
 
 

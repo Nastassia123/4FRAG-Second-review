@@ -1,16 +1,16 @@
 package tests;
 
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.MainPage;
-import pages.ProductPage;
-import pages.WishListPage;
 
 public class VerifyProductsCatalogOptions extends MainPage {
 
     @Test
-    public void testChooseProductFromCatalog(){
+    public void testChooseProductFromCatalog() throws InterruptedException {
 
-        WishListPage productPage = new MainPage()
+        new MainPage()
                 .openHomePage()
                 .chooseProductCategory()
                 .checkBrandOfChosenProduct()
@@ -22,5 +22,6 @@ public class VerifyProductsCatalogOptions extends MainPage {
                 .addProductToWishListFromResultList()
                 .closePopUpWindow()
                 .openProductInTheWishListPage();
+        Assert.assertTrue(driver.findElement(By.id("item-product-inner")).isDisplayed());
     }
 }

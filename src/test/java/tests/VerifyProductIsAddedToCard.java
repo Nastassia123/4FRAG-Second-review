@@ -1,26 +1,22 @@
 package tests;
 
-import abstractPackage.BasePageClass;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CardPage;
 import pages.MainPage;
 
-public class VerifyProductIsAddedToCard extends MainPage{
+public class VerifyProductIsAddedToCard extends MainPage {
 
 
     @Test
-    public void testAdditionProductToCard()   {
-       CardPage mainPage = new MainPage()
-            .openHomePage()
-            .addProductToCard()
-             .closePopUpWindow()
-            .goToTheCardPage();
-           //    .initiateOrder("Оформить заказ");
-
-
-
+    public void testAdditionProductToCard() {
+        new MainPage()
+                .openHomePage()
+                .addProductToCard()
+                .closePopUpWindow()
+                .goToTheCardPage();
+        //    .initiateOrder("Оформить заказ");
+        Assert.assertTrue(driver.findElement(By.xpath("//table[contains(@id, 'page-cart-table-responsive')]//tbody//tr//td")).isDisplayed());
 
 
     }

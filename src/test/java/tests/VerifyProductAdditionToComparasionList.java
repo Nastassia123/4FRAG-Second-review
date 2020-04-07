@@ -1,21 +1,22 @@
 package tests;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.ComparasionListPage;
 import pages.MainPage;
 
 public class VerifyProductAdditionToComparasionList extends MainPage {
 
-    @Parameters({"Сравнение товаров"})
+
     @Test
-    public void testProductAdditionToTheList(){
-      boolean isComparasionListPage = new MainPage()
+    public void testProductAdditionToTheList() throws InterruptedException {
+
+        new MainPage()
                 .openHomePage()
                 .addItemToComparasionList()
                 .closePopUpWindow()
                 .openTabPage("Сравнение товаров");
-       Assert.assertTrue(isComparasionListPage);
+        Assert.assertTrue(driver.findElement(By.xpath("//label[contains(text(), 'Товары для сравнения')]")).isDisplayed());
     }
 }
+
